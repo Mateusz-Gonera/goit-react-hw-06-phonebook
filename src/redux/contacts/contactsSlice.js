@@ -26,15 +26,16 @@ const contactsSlice = createSlice({
           payload: { id: nanoid(6), name, number },
         };
       },
-      },
-      deleteContact(state, action) {
-          return state.contacts.items.filter(item => item.id === action.payload)
-      },
-      handleFilter(state, action) {
-          state.contacts.filter = action.payload
-      }
+    },
+    deleteContact(state, action) {
+      return state.contacts.items.filter(item => item.id === action.payload);
+    },
+    handleFilter(state, action) {
+      state.contacts.filter = action.payload;
+    },
   },
 });
 
-export const { addContact, deleteContact, handleFilter } = contactsSlice.actions;
+export const { addContact, deleteContact, handleFilter } =
+  contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
