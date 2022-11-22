@@ -64,7 +64,8 @@ export const App = () => {
     for (const element of contacts) {
       if (contacts.indexOf(element) !== index) {
         setContacts(contacts.filter((contact, idx) => idx !== index));
-      } else {
+      }
+      if (contacts.indexOf(element) === 0) {
         setContacts([]);
       }
     }
