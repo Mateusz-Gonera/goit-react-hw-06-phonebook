@@ -2,14 +2,24 @@ import styles from './ContactList.module.css';
 import PropTypes from 'prop-types';
 import { Contact } from 'components/Contact/Contact';
 import { useSelector } from 'react-redux';
-import { getItems } from 'redux/contacts/selectors';
+import { getFilter, getItems } from 'redux/contacts/selectors';
 
-export const ContactList = ({ filterArray }) => {
+const filteredItems = (items, filter) => {
+  const filterArray = items.map(item => {
+    const filtered = filter.toLowerCase();
+    return item.name.toLowerCase().includes(filtered);
+  });
+  return filterArray;
+};
+
+export const ContactList = () => {
   const items = useSelector(getItems);
+  const filter = useSelector(getFilter);
+  const visibleItems = filteredItems(items, filter);
 
   return (
     <ul className={styles.list}>
-      {filterArray().map(contact => (
+      {visibleItems.map(contact => (
         <li key={contact.id} className={styles.item}>
           <Contact contact={contact} />
         </li>
