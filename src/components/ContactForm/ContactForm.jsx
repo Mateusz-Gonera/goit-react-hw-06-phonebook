@@ -2,16 +2,26 @@ import styles from './ContactForm.module.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contacts/contactsSlice';
+import { getItems } from 'redux/contacts/selectors';
 
 export const ContactForm = () => {
   let elementId = nanoid();
+  const dispatch = useDispatch();
+  const items = useSelector(getItems);
 
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.currentTarget;
-    const name = form.element.name.value;
-    const number = form.element.number.value;
-    
+    const name = form.elements.name.value;
+    const number = form.elements.number.value;
+    const nameArray = items.map(item => item.name);
+    if (nameArray.includes(name)) {
+      return alert(`${name} is already in contacts.`);
+    }
+    dispatch(addContact(name, number));
+    form.reset();
   };
 
   return (

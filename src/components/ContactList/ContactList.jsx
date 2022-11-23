@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { getFilter, getItems } from 'redux/contacts/selectors';
 
 const filteredItems = (items, filter) => {
+  if (filter === '') return items;
   const filterArray = items.map(item => {
     const filtered = filter.toLowerCase();
     return item.name.toLowerCase().includes(filtered);
