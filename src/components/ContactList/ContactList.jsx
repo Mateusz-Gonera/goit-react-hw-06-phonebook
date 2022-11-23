@@ -6,7 +6,7 @@ import { getFilter, getItems } from 'redux/contacts/selectors';
 
 const filteredItems = (items, filter) => {
   if (filter === '') return items;
-  const filterArray = items.map(item => {
+  const filterArray = items.filter(item => {
     const filtered = filter.toLowerCase();
     return item.name.toLowerCase().includes(filtered);
   });
