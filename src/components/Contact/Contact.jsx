@@ -1,7 +1,13 @@
 import styles from './Contact.module.css';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/contacts/contactsSlice';
 
-export const Contact = ({ contact, onDelete }) => {
+export const Contact = ({ contact }) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = () => dispatch(deleteContact(contact.id));
+
   return (
     <>
       <span className={styles.paragraph}>
@@ -10,7 +16,7 @@ export const Contact = ({ contact, onDelete }) => {
       <button
         type="button"
         className={styles.btn}
-        onClick={() => onDelete(contact.id)}
+        onClick={() => handleDelete()}
       >
         Delete
       </button>
@@ -20,5 +26,4 @@ export const Contact = ({ contact, onDelete }) => {
 
 Contact.propTypes = {
   contact: PropTypes.object.isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
