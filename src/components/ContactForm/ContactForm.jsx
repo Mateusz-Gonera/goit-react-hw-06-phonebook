@@ -3,8 +3,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
-export const ContactForm = ({ handleSubmit }) => {
+export const ContactForm = () => {
   let elementId = nanoid();
+
+  const handleSubmit = evt => {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    const name = form.element.name.value;
+    const number = form.element.number.value;
+    
+  };
 
   return (
     <form className={styles.form} htmlFor={elementId} onSubmit={handleSubmit}>
