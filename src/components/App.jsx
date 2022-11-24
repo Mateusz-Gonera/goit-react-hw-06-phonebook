@@ -3,6 +3,9 @@ import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+import { setInitialItems } from 'redux/contacts/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getItems } from 'redux/contacts/selectors';
 
 export const App = () => {
   const [contacts, setContacts] = useState(() => {
@@ -25,12 +28,28 @@ export const App = () => {
     }
   });
   const [filter, setFilter] = useState('');
+  const items = useSelector(getItems);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const newContacts = contacts;
-    const json = JSON.stringify(newContacts);
-    localStorage.setItem('contacts', json);
-  }, [contacts]);
+    const storage = JSON.parse(localStorage.getItem('items'));
+    if (storage === null) {
+      dispatch(
+        setInitialItems([
+          { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+          { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+          { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+          { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+        ])
+      );
+    } else {
+      dispatch(setInitialItems(storage));
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem('items', JSON.stringify(items));
+  // }, [items]);
 
   const handleSubmit = evt => {
     evt.preventDefault();

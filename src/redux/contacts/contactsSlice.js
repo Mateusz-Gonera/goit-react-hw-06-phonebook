@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 
+const storage = () => {
+  // localStorage.setItem('items', JSON.stringify(state.items));
+  // if (localStorage.getItem)
+};
+
 const contactsInitialState = {
-  items: [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ],
+  items: [],
   filter: '',
 };
 
@@ -18,6 +18,7 @@ const contactsSlice = createSlice({
     addContact: {
       reducer(state, action) {
         state.items.push(action.payload);
+        localStorage.setItem('items', JSON.stringify(state.items));
       },
       prepare(name, number) {
         return {
@@ -26,17 +27,19 @@ const contactsSlice = createSlice({
       },
     },
     deleteContact(state, action) {
-      let filtered = state.items.filter(
-        item => item.id !== action.payload
-      );
+      let filtered = state.items.filter(item => item.id !== action.payload);
       state.items = filtered;
+      localStorage.setItem('items', JSON.stringify(state.items));
     },
     handleFilter(state, action) {
       state.filter = action.payload;
     },
+    setInitialItems(state, action) {
+      state.items = action.payload;
+    },
   },
 });
 
-export const { addContact, deleteContact, handleFilter } =
+export const { addContact, deleteContact, handleFilter, setInitialItems } =
   contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
