@@ -7,7 +7,6 @@ export const Contact = ({ contact }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    console.log(contact.id);
     dispatch(deleteContact(contact.id));
   };
 

@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 
-const storage = () => {
-  // localStorage.setItem('items', JSON.stringify(state.items));
-  // if (localStorage.getItem)
-};
-
 const contactsInitialState = {
   items: [],
   filter: '',
